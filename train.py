@@ -4,10 +4,8 @@
 import argparse
 import os
 os.environ['CUDA_VISIBLE_DEVICES'] = '0'
-os.environ['TF_CPP_MIN_LOG_LEVEL'] = '2'
 import random
 import warnings
-warnings.filterwarnings("ignore", category=UserWarning, module="torch")
 
 import numpy as np
 import torch
