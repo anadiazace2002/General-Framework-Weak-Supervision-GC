@@ -101,7 +101,7 @@ def get_port():
     """
     find a free port to used for distributed learning
     """
-    # pscmd = "netstat -ntl |grep -v Active| grep -v Proto|awk '{print $4}'|awk -F: '{print $NF}'"
+    pscmd = "netstat -ntl |grep -v Active| grep -v Proto|awk '{print $4}'|awk -F: '{print $NF}'"
     procs = os.popen(pscmd).read()
     procarr = procs.split("\n")
     tt= random.randint(15000, 30000)
