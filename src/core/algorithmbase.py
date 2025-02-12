@@ -360,7 +360,8 @@ class AlgorithmBase:
         """
         load model and specified parameters for resume
         """
-        checkpoint = torch.load(load_path, map_location='cpu', weights_only=True)
+        checkpoint = torch.load(load_path, map_location='cpu', weights_only=False)
+        self.print_fn('Model loaded')
         self.model.load_state_dict(checkpoint['model'])
         self.loss_scaler.load_state_dict(checkpoint['loss_scaler'])
         self.it = checkpoint['it']
