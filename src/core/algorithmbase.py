@@ -368,10 +368,10 @@ class AlgorithmBase:
         self.print_fn('Model loaded')
         self.model.load_state_dict(checkpoint['model'])
         self.loss_scaler.load_state_dict(checkpoint['loss_scaler'])
-        self.it = checkpoint['it']
-        self.start_epoch = checkpoint['epoch']
+        self.it = 0
+        self.start_epoch = 0
         self.epoch = self.start_epoch
-        self.best_it = checkpoint['best_it']
+        self.best_it = 0
         self.best_eval_acc = checkpoint['best_eval_acc']
         self.optimizer.load_state_dict(checkpoint['optimizer'])
         if self.scheduler is not None and 'scheduler' in checkpoint:
