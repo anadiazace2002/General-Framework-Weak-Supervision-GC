@@ -232,7 +232,8 @@ class AlgorithmBase:
         """
         self.model.train()
         self.call_hook("before_run")
-
+        logger.info(f"Start training at epoch {self.start_epoch}, iteration {self.it}/{self.num_train_iter}") #changed
+        
         for epoch in range(self.start_epoch, self.epochs):
             self.epoch = epoch
             
@@ -253,12 +254,12 @@ class AlgorithmBase:
                 self.out_dict, self.log_dict = self.train_step(**self.process_batch(**data_lb, **data_ulb))
                 self.call_hook("after_train_step")
                 self.it += 1
-                                             
+            '''                              
             if epoch % 100 == 0:
                 save_path = os.path.join(self.save_dir, f"checkpoint_epoch_{epoch}.pth")
                 self.save_model(save_path, save_path)
                 print(f"Model saved at epoch {epoch}")
-
+            '''
             self.call_hook("after_train_epoch")
 
         self.call_hook("after_run")
