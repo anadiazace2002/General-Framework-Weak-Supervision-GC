@@ -231,6 +231,16 @@ class ImpreciseNoisyLabelLearning(AlgorithmBase):
                 self.call_hook("before_train_step")
                 self.out_dict, self.log_dict = self.train_step(**self.process_batch(**data))
                 self.call_hook("after_train_step")
+
+                self.noise_model.eval()  # asegurar modo eval
+                with torch.no_grad():
+                    noise_matrix = self.noise_model(torch.eye(self.num_classes).cuda()).detach().cpu().numpy()
+                
+                matrix_dir = os.path.join(self.args.save_dir, "matrix")
+                os.makedirs(matrix_dir, exist_ok=True)
+                save_path = os.path.join(matrix_dir, f"matrix_{epoch}.csv")
+                np.savetxt(save_path, noise_matrix, delimiter=",")
+
                 self.it += 1
             
             self.call_hook("after_train_epoch")
