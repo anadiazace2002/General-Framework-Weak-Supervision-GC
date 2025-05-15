@@ -168,6 +168,11 @@ def resnet18(pretrained=False, pretrained_path=None, **kwargs):
 
 def resnet34(pretrained=False, pretrained_path=None, **kwargs):
     model = ResNet(block=BasicBlock, num_blocks=[3,4,6,3], **kwargs)
+    return model
+
+
+def resnet50(pretrained=False, pretrained_path=None, **kwargs):
+    model = ResNet(block=Bottleneck, num_blocks=[3,4,6,3], **kwargs)
     net = 'resnet50'
     dataset = 'cifar100'
     chekpoint = torch.load('pretrained/ckpt_{}_{}.pth'.format(dataset, net))
@@ -177,11 +182,6 @@ def resnet34(pretrained=False, pretrained_path=None, **kwargs):
         sd[nk] = chekpoint['model'][ke]
     model.load_state_dict(sd, strict=False)
     # model = model.to(device)
-    return model
-
-
-def resnet50(pretrained=False, pretrained_path=None, **kwargs):
-    model = ResNet(block=Bottleneck, num_blocks=[3,4,6,3], **kwargs)
     return model
 
 
