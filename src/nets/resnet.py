@@ -154,6 +154,7 @@ class ResNet(nn.Module):
 
 def resnet18(pretrained=False, pretrained_path=None, **kwargs):
     model = ResNet(block=BasicBlock, num_blocks=[2,2,2,2], **kwargs)
+    """
     net = 'resnet18'
     dataset = 'cifar100'
     chekpoint = torch.load('pretrained/ckpt_{}_{}.pth'.format(dataset, net))
@@ -162,6 +163,7 @@ def resnet18(pretrained=False, pretrained_path=None, **kwargs):
         nk = ke.replace('module.', '')
         sd[nk] = chekpoint['model'][ke]
     model.load_state_dict(sd, strict=False)
+    """
     # model = model.to(device)
     return model
 
@@ -173,6 +175,7 @@ def resnet34(pretrained=False, pretrained_path=None, **kwargs):
 
 def resnet50(pretrained=False, pretrained_path=None, **kwargs):
     model = ResNet(block=Bottleneck, num_blocks=[3,4,6,3], **kwargs)
+    """
     net = 'resnet50'
     dataset = 'cifar100'
     chekpoint = torch.load('pretrained/ckpt_{}_{}.pth'.format(dataset, net))
@@ -180,7 +183,8 @@ def resnet50(pretrained=False, pretrained_path=None, **kwargs):
     for ke in chekpoint['model']:
         nk = ke.replace('module.', '')
         sd[nk] = chekpoint['model'][ke]
-    model.load_state_dict(sd, strict=False)
+    model.load_state_dict(sd, strict=False) 
+    """
     # model = model.to(device)
     return model
 
