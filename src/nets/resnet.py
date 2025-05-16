@@ -175,6 +175,9 @@ def resnet34(pretrained=False, pretrained_path=None, **kwargs):
 
 def resnet50(pretrained=False, pretrained_path=None, **kwargs):
     model = ResNet(block=Bottleneck, num_blocks=[3,4,6,3], **kwargs)
+    print("Model:", model)
+    total_params = sum(p.numel() for p in model.parameters())
+    print(f"Total parameters: {total_params}")
     """
     net = 'resnet50'
     dataset = 'cifar100'
