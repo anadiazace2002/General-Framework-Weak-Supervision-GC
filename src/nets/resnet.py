@@ -178,7 +178,6 @@ def resnet50(pretrained=False, pretrained_path=None, **kwargs):
     print("Model:", model)
     total_params = sum(p.numel() for p in model.parameters())
     print(f"Total parameters: {total_params}")
-    """
     net = 'resnet50'
     dataset = 'cifar100'
     chekpoint = torch.load('pretrained/ckpt_{}_{}.pth'.format(dataset, net))
@@ -187,7 +186,7 @@ def resnet50(pretrained=False, pretrained_path=None, **kwargs):
         nk = ke.replace('module.', '')
         sd[nk] = chekpoint['model'][ke]
     model.load_state_dict(sd, strict=False) 
-    """
+
     # model = model.to(device)
     return model
 
