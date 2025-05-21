@@ -121,7 +121,7 @@ def get_config():
                         help='distributed backend')
     parser.add_argument('--seed', default=1, type=int,
                         help='seed for initializing training. ')
-    parser.add_argument('--gpu', default=0, type=int,
+    parser.add_argument('--gpu', default=2, type=int,
                         help='GPU id to use.')
     parser.add_argument('--multiprocessing-distributed', type=str2bool, default=False,
                         help='Use multi-processing distributed training to launch '
