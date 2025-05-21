@@ -129,18 +129,20 @@ def get_config():
                              'fastest way to use PyTorch for either single node or '
                              'multi node data parallel training')
     
-    
+    print("gpu: ", args.gpu)
     # config file
     parser.add_argument('--c', type=str, default='config/partial_noisy_ulb/classic_cv/imp_partial_noisy_ulb_cifar10_lb50000_n0.1_p0.1_42.yaml')
-
+    print("c: ", args.c)
     # add algorithm specific parameters
     args = parser.parse_args()
+    print("1gpu: ", args.gpu)
     over_write_args_from_file(args, args.c)
     for argument in name2alg[args.algorithm].get_argument():
         parser.add_argument(argument.name, type=argument.type, default=argument.default, help=argument.help, *argument.args, **argument.kwargs)
-
+    print("2gpu: ", args.gpu)
     args = parser.parse_args()
     over_write_args_from_file(args, args.c)
+    print("3gpu: ", args.gpu)
     return args
 
 
