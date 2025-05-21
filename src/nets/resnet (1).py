@@ -127,7 +127,7 @@ class ResNet(nn.Module):
         out = torch.flatten(out, 1)
         return out
 
-
+"""
 def resnet18(**kwargs):
     return ResNet(BasicBlock, [2, 2, 2, 2], **kwargs)
 
@@ -138,6 +138,46 @@ def resnet34(**kwargs):
 
 def resnet50(**kwargs):
     return ResNet(Bottleneck, [3, 4, 6, 3], **kwargs)
+"""
+def resnet18(pretrained=False, pretrained_path=None, **kwargs):
+    # model = ResNet(block=BasicBlock, num_blocks=[2,2,2,2], **kwargs)
+    net = 'resnet18'
+    dataset = 'cifar100'
+    chekpoint = torch.load('pretrained/ckpt_{}_{}.pth'.format(dataset, net))
+    sd = {}
+    for ke in chekpoint['model']:
+        nk = ke.replace('module.', '')
+        sd[nk] = chekpoint['model'][ke]
+        
+    model = SupCEResNet(net, num_classes=100)
+    model.load_state_dict(sd, strict=False)
+    # model = model.to(device)
+    return model
+
+
+def resnet34(pretrained=False, pretrained_path=None, **kwargs):
+    model = ResNet(block=BasicBlock, num_blocks=[3,4,6,3], **kwargs)
+    return model
+
+
+def resnet50(pretrained=False, pretrained_path=None, **kwargs):
+    model = ResNet(block=Bottleneck, num_blocks=[3,4,6,3], **kwargs)
+    print("Model:", model)
+    total_params = sum(p.numel() for p in model.parameters())
+    print(f"Total parameters: {total_params}")
+    net = 'resnet50'
+    dataset = 'cifar100'
+    chekpoint = torch.load('pretrained/ckpt_{}_{}.pth'.format(dataset, net))
+    sd = {}
+    for ke in chekpoint['model']:
+        nk = ke.replace('module.', '')
+        sd[nk] = chekpoint['model'][ke]
+        
+    model.load_state_dict(sd, strict=False) 
+
+    # model = model.to(device)
+    return model
+
 
 
 def resnet101(**kwargs):
